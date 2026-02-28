@@ -1,0 +1,42 @@
+seed: 42
+
+base_dir: "C:/Users/kdw61/OneDrive/바탕 화면/인턴/project/data"
+batch_size: 1
+num_workers: 0
+device: 'cpu'
+epochs: 50
+save_dir: "../checkpoints/cls"
+max_patience: 10
+
+optimizer:
+  name: Adam
+  parameters:
+    lr: 1e-4
+
+scheduler: 
+  name: StepLR
+  parameters:
+    step_size: 30
+    gamma: 0.1
+
+model:
+  name: "resnet50"
+  parameters:
+    pretrained: True
+    in_chans: 1
+    num_classes: 3
+
+train:
+  df_path: train_with_p.csv
+
+valid:
+  df_path: valid_with_p.csv
+
+test:
+  df_path: test_with_p.csv
+  pt_path: ""
+
+loss:
+  name: CrossEntropyLoss
+  parameters:
+    label_smoothing: 0.0

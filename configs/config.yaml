@@ -1,0 +1,42 @@
+seed: 42
+
+base_dir: "C:/Users/kdw61/OneDrive/바탕 화면/인턴/project/data"
+batch_size: 1
+num_workers: 0
+device: 'cpu'
+epochs: 50
+optimizer: Adam
+lr: 1e-4
+save_dir: "../checkpoints/pix2pix"
+max_patience: 10
+
+scheduler: 
+  name: StepLR
+  parameters:
+    step_size: 30
+    gamma: 0.1
+
+model:
+  in_channels: 1
+  out_channels: 1
+  num_domain: 3
+  num_pos: 3
+  init_features: 32
+
+train:
+  df_path: train_with_p.csv
+  patch_size: [64, 64, 64]
+  brain_prob: 0.7
+  is_residual: True
+
+valid:
+  df_path: valid_with_p.csv
+
+test:
+  df_path: test_with_p.csv
+  pt_path: "checkpoints/pix2pix/gan(pix2pix)_best_20260211_031121_valloss_10.7162.pt"
+  stride: [32, 32, 32]
+
+loss:
+  lambda_l1: 100.0
+  lambda_diff: 20.0

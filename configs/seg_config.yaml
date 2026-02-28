@@ -1,0 +1,49 @@
+seed: 42
+
+base_dir: "C:/Users/kdw61/OneDrive/바탕 화면/인턴/project/data"
+batch_size: 1
+num_workers: 0
+device: 'cpu'
+epochs: 50
+save_dir: "../checkpoints/seg"
+max_patience: 10
+
+optimizer:
+  name: Adam
+  parameters:
+    lr: 1e-4
+
+scheduler: 
+  name: StepLR
+  parameters:
+    step_size: 30
+    gamma: 0.1
+
+model:
+  name: Unet
+  parameters:
+    encoder_name: "efficientnet-b3"
+    encoder_weights: 'imagenet'
+    in_channels: 1
+    classes: 1
+
+train:
+  df_path: train_t2_seg.csv
+
+valid:
+  df_path: valid_t2_seg.csv
+
+test:
+  df_path: test_t2_seg.csv
+  pt_path: ""
+
+loss:
+  name: DiceBCE
+  parameters:
+    dice_weight: 0.7
+    bce_weight: 0.3
+    dice:
+      mode: binary
+      from_logits: true
+    bce:
+      pos_weight: 5.0
